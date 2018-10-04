@@ -12,6 +12,7 @@ class InputValidationPage extends StatefulWidget {
     @required this.keyboardType,
     @required this.inputFormatter,
     @required this.submitValidator,
+    this.onSubmit,
   });
   final String title;
   final InputDecoration inputDecoration;
@@ -21,6 +22,7 @@ class InputValidationPage extends StatefulWidget {
   final TextInputType keyboardType;
   final TextInputFormatter inputFormatter;
   final StringValidator submitValidator;
+  final ValueChanged<String> onSubmit;
 
   @override
   _InputValidationPageState createState() => _InputValidationPageState();
@@ -45,7 +47,7 @@ class _InputValidationPageState extends State<InputValidationPage> {
 
   void _submit() async {
     _focusNode.unfocus();
-    print('value: $_value');
+    widget.onSubmit(_value);
   }
 
   @override
@@ -59,7 +61,6 @@ class _InputValidationPageState extends State<InputValidationPage> {
   }
 
   Widget _buildTextField() {
-    // https://stackoverflow.com/questions/48706884/change-textfields-underline-in-flutter
     return TextField(
       decoration: widget.inputDecoration,
       style: widget.textFieldStyle,

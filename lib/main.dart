@@ -68,6 +68,9 @@ class MyHomePage extends StatelessWidget {
         editingValidator: EmailEditingRegexValidator()
       ),
       submitValidator: EmailSubmitRegexValidator(),
+      onSubmit: (value) {
+        print(value);
+      },
     ));
   }
 
@@ -83,6 +86,9 @@ class MyHomePage extends StatelessWidget {
           editingValidator: DecimalNumberEditingRegexValidator()
       ),
       submitValidator: DecimalNumberSubmitValidator(),
+      onSubmit: (value) {
+        print(value);
+      },
     ));
   }
 
