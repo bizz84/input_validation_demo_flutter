@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
+import 'package:input_validation_demo_flutter/validator.dart';
 
 class InputValidationPage extends StatefulWidget {
-  InputValidationPage({this.title, this.hintText, this.keyboardType, this.inputFormatter});
+  InputValidationPage({
+    @required this.title,
+    @required this.hintText,
+    @required this.keyboardType,
+    @required this.inputFormatter,
+    @required this.submitValidator,
+  });
   final String title;
   final String hintText;
   final TextInputType keyboardType;
   final TextInputFormatter inputFormatter;
+  final StringValidator submitValidator;
   @override
   _InputValidationPageState createState() => _InputValidationPageState();
 }
@@ -15,7 +22,7 @@ class InputValidationPage extends StatefulWidget {
 class _InputValidationPageState extends State<InputValidationPage> {
   TextEditingController _controller;
   FocusNode _focusNode;
-  double _value = 0.0;
+  String _value = '';
 
   @override
   void initState() {
@@ -24,24 +31,14 @@ class _InputValidationPageState extends State<InputValidationPage> {
     _controller = TextEditingController();
     _controller.addListener(() {
       setState(() {
-        _value = totalValue();
+        _value = _controller.text;
       });
     });
   }
 
-  double totalValue() {
-    try {
-      final text = _controller.text;
-      return double.parse(text ?? '0');
-    } catch (e) {
-      return 0.0;
-    }
-  }
-
   void _submit() async {
     _focusNode.unfocus();
-    final total = totalValue();
-    print('total: $total');
+    print('value: $_value');
   }
 
   @override
@@ -84,8 +81,9 @@ class _InputValidationPageState extends State<InputValidationPage> {
   }
 
   Widget _buildDoneButton(BuildContext context) {
+    bool valid = widget.submitValidator.isValid(_value);
     return Opacity(
-      opacity: _value > 0 ? 1.0 : 0.0,
+      opacity: valid ? 1.0 : 0.0,
       child: Container(
         constraints:
             BoxConstraints.expand(width: double.infinity, height: 48.0),

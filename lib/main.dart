@@ -4,16 +4,32 @@ import 'package:input_validation_demo_flutter/validator.dart';
 
 void main() => runApp(new MyApp());
 
-class DecimalNumberRegexValidator extends RegexValidator {
-  DecimalNumberRegexValidator()
+class DecimalNumberEditingRegexValidator extends RegexValidator {
+  DecimalNumberEditingRegexValidator()
       : super(regexSource: "^\$|^(0|([1-9][0-9]{0,3}))(\\.[0-9]{0,2})?\$");
 }
 
-class EmailRegexValidator extends RegexValidator {
-  EmailRegexValidator()
-      : super(regexSource: "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]+\$)");
+class DecimalNumberSubmitValidator implements StringValidator {
+  @override
+  bool isValid(String value) {
+    try {
+      final number = double.parse(value);
+      return number > 0.0;
+    } catch (e) {
+      return false;
+    }
+  }
 }
 
+class EmailEditingRegexValidator extends RegexValidator {
+  EmailEditingRegexValidator()
+      : super(regexSource: "^[a-zA-Z0-9_.+-]*(@([a-zA-Z0-9-]*(\\.[a-zA-Z0-9-]*)?)?)?\$");
+}
+
+class EmailSubmitRegexValidator extends RegexValidator {
+  EmailSubmitRegexValidator()
+      : super(regexSource: "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+\$)");
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -46,8 +62,9 @@ class MyHomePage extends StatelessWidget {
       hintText: 'Enter your email',
       keyboardType: TextInputType.emailAddress,
       inputFormatter: ValidatorInputFormatter(
-        validator: EmailRegexValidator()
+        editingValidator: EmailEditingRegexValidator()
       ),
+      submitValidator: EmailSubmitRegexValidator(),
     ));
   }
 
@@ -57,8 +74,9 @@ class MyHomePage extends StatelessWidget {
       hintText: '£0.00',
       keyboardType: TextInputType.number,
       inputFormatter: ValidatorInputFormatter(
-          validator: DecimalNumberRegexValidator()
+          editingValidator: DecimalNumberEditingRegexValidator()
       ),
+      submitValidator: DecimalNumberSubmitValidator(),
     ));
   }
 

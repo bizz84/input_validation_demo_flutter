@@ -28,13 +28,13 @@ class RegexValidator implements StringValidator {
 }
 
 class ValidatorInputFormatter implements TextInputFormatter {
-  ValidatorInputFormatter({this.validator});
-  final StringValidator validator;
+  ValidatorInputFormatter({this.editingValidator});
+  final StringValidator editingValidator;
 
   TextEditingValue formatEditUpdate(
       TextEditingValue oldValue, TextEditingValue newValue) {
-    final oldValueValid = validator.isValid(oldValue.text);
-    final newValueValid = validator.isValid(newValue.text);
+    final oldValueValid = editingValidator.isValid(oldValue.text);
+    final newValueValid = editingValidator.isValid(newValue.text);
     if (oldValueValid && !newValueValid) {
       return oldValue;
     }
