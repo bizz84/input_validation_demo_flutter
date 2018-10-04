@@ -59,7 +59,10 @@ class MyHomePage extends StatelessWidget {
   void _forgotPassword(BuildContext context) {
     _pushPage(context, InputValidationPage(
       title: 'Forgot password',
-      hintText: 'Enter your email',
+      inputDecoration: InputDecoration(hintText: 'test@test.com'),
+      textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
+      textAlign: TextAlign.start,
+      submitText: 'Submit',
       keyboardType: TextInputType.emailAddress,
       inputFormatter: ValidatorInputFormatter(
         editingValidator: EmailEditingRegexValidator()
@@ -71,7 +74,10 @@ class MyHomePage extends StatelessWidget {
   void _makePayment(BuildContext context) {
     _pushPage(context, InputValidationPage(
       title: 'Make a payment',
-      hintText: '£0.00',
+      inputDecoration: InputDecoration.collapsed(hintText: '£0.00'),
+      textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
+      textAlign: TextAlign.center,
+      submitText: 'Submit',
       keyboardType: TextInputType.number,
       inputFormatter: ValidatorInputFormatter(
           editingValidator: DecimalNumberEditingRegexValidator()
@@ -89,11 +95,11 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Forgot Password'),
+            title: Text('Forgot Password', style: TextStyle(fontSize: 20.0)),
             onTap: () => _forgotPassword(context),
           ),
           ListTile(
-            title: Text('Make a payment'),
+            title: Text('Make a payment', style: TextStyle(fontSize: 20.0)),
             onTap: () => _makePayment(context),
           ),
         ],

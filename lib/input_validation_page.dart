@@ -5,16 +5,23 @@ import 'package:input_validation_demo_flutter/validator.dart';
 class InputValidationPage extends StatefulWidget {
   InputValidationPage({
     @required this.title,
-    @required this.hintText,
+    this.inputDecoration = const InputDecoration(),
+    this.textFieldStyle,
+    this.textAlign = TextAlign.start,
+    @required this.submitText,
     @required this.keyboardType,
     @required this.inputFormatter,
     @required this.submitValidator,
   });
   final String title;
-  final String hintText;
+  final InputDecoration inputDecoration;
+  final TextStyle textFieldStyle;
+  final TextAlign textAlign;
+  final String submitText;
   final TextInputType keyboardType;
   final TextInputFormatter inputFormatter;
   final StringValidator submitValidator;
+
   @override
   _InputValidationPageState createState() => _InputValidationPageState();
 }
@@ -51,12 +58,12 @@ class _InputValidationPageState extends State<InputValidationPage> {
     );
   }
 
-  Widget _buildTextField(BuildContext context) {
+  Widget _buildTextField() {
     // https://stackoverflow.com/questions/48706884/change-textfields-underline-in-flutter
     return TextField(
-      decoration: InputDecoration.collapsed(hintText: widget.hintText),
-      style: TextStyle(fontSize: 32.0, color: Colors.black87),
-      textAlign: TextAlign.center,
+      decoration: widget.inputDecoration,
+      style: widget.textFieldStyle,
+      textAlign: widget.textAlign,
       keyboardType: widget.keyboardType,
       autofocus: true,
       inputFormatters: [
@@ -72,7 +79,7 @@ class _InputValidationPageState extends State<InputValidationPage> {
       children: <Widget>[
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 80.0),
-          child: Center(child: _buildTextField(context)),
+          child: Center(child: _buildTextField()),
         ),
         Expanded(child: Container()),
         _buildDoneButton(context),
@@ -86,10 +93,10 @@ class _InputValidationPageState extends State<InputValidationPage> {
       opacity: valid ? 1.0 : 0.0,
       child: Container(
         constraints:
-            BoxConstraints.expand(width: double.infinity, height: 48.0),
+            BoxConstraints.expand(width: double.infinity, height: 60.0),
         child: FlatButton(
           color: Colors.green[400],
-          child: Text('Done', style: TextStyle(fontSize: 20.0)),
+          child: Text(widget.submitText, style: TextStyle(fontSize: 20.0)),
           onPressed: _submit,
         ),
       ),
