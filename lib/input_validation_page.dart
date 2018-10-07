@@ -29,21 +29,8 @@ class InputValidationPage extends StatefulWidget {
 }
 
 class _InputValidationPageState extends State<InputValidationPage> {
-  TextEditingController _controller;
-  FocusNode _focusNode;
+  FocusNode _focusNode = FocusNode();
   String _value = '';
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode = FocusNode();
-    _controller = TextEditingController();
-    _controller.addListener(() {
-      setState(() {
-        _value = _controller.text;
-      });
-    });
-  }
 
   void _submit() async {
     _focusNode.unfocus();
@@ -71,7 +58,11 @@ class _InputValidationPageState extends State<InputValidationPage> {
         widget.inputFormatter,
       ],
       focusNode: _focusNode,
-      controller: _controller,
+      onChanged: (value) {
+        setState(() {
+          _value = value;
+        });
+      },
     );
   }
 
