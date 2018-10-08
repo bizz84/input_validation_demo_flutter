@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Regex Input Validation'),
     );
   }
 }
@@ -75,7 +75,8 @@ class MyHomePage extends StatelessWidget {
         submitText: 'Submit',
         keyboardType: TextInputType.emailAddress,
         inputFormatter: ValidatorInputFormatter(
-            editingValidator: EmailEditingRegexValidator()),
+          editingValidator: EmailEditingRegexValidator(),
+        ),
         submitValidator: EmailSubmitRegexValidator(),
         onSubmit: (value) => _onSubmit(context, value),
       ),
@@ -93,7 +94,8 @@ class MyHomePage extends StatelessWidget {
         submitText: 'Submit',
         keyboardType: TextInputType.number,
         inputFormatter: ValidatorInputFormatter(
-            editingValidator: DecimalNumberEditingRegexValidator()),
+          editingValidator: DecimalNumberEditingRegexValidator(),
+        ),
         submitValidator: DecimalNumberSubmitValidator(),
         onSubmit: (value) => _onSubmit(context, value),
       ),

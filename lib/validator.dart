@@ -8,9 +8,10 @@ class RegexValidator implements StringValidator {
   RegexValidator({this.regexSource});
   final String regexSource;
 
+  /// value: the input string
+  /// returns: true if the input string is a full match for regexSource
   bool isValid(String value) {
     try {
-      // https://regex101.com/
       final regex = RegExp(regexSource);
       final matches = regex.allMatches(value);
       for (Match match in matches) {
