@@ -66,9 +66,7 @@ class _InputValidationPageState extends State<InputValidationPage> {
       ],
       focusNode: _focusNode,
       onChanged: (value) {
-        setState(() {
-          _value = value;
-        });
+        setState(() => _value = value);
       },
       onEditingComplete: _submit,
     );

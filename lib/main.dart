@@ -58,6 +58,10 @@ class MyHomePage extends StatelessWidget {
     ));
   }
 
+  void _onSubmit(BuildContext context, String value) {
+    print(value);
+  }
+
   void _forgotPassword(BuildContext context) {
     _pushPage(
       context,
@@ -73,9 +77,7 @@ class MyHomePage extends StatelessWidget {
         inputFormatter: ValidatorInputFormatter(
             editingValidator: EmailEditingRegexValidator()),
         submitValidator: EmailSubmitRegexValidator(),
-        onSubmit: (value) {
-          print(value);
-        },
+        onSubmit: (value) => _onSubmit(context, value),
       ),
     );
   }
@@ -85,7 +87,7 @@ class MyHomePage extends StatelessWidget {
       context,
       InputValidationPage(
         title: 'Make a payment',
-        inputDecoration: InputDecoration.collapsed(hintText: '£0.00'),
+        inputDecoration: InputDecoration.collapsed(hintText: '\$0.00'),
         textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
         textAlign: TextAlign.center,
         submitText: 'Submit',
@@ -93,9 +95,7 @@ class MyHomePage extends StatelessWidget {
         inputFormatter: ValidatorInputFormatter(
             editingValidator: DecimalNumberEditingRegexValidator()),
         submitValidator: DecimalNumberSubmitValidator(),
-        onSubmit: (value) {
-          print(value);
-        },
+        onSubmit: (value) => _onSubmit(context, value),
       ),
     );
   }
@@ -109,12 +109,12 @@ class MyHomePage extends StatelessWidget {
       body: ListView(
         children: <Widget>[
           ListTile(
-            title: Text('Forgot Password', style: TextStyle(fontSize: 20.0)),
-            onTap: () => _forgotPassword(context),
-          ),
-          ListTile(
             title: Text('Make a payment', style: TextStyle(fontSize: 20.0)),
             onTap: () => _makePayment(context),
+          ),
+          ListTile(
+            title: Text('Forgot Password', style: TextStyle(fontSize: 20.0)),
+            onTap: () => _forgotPassword(context),
           ),
         ],
       ), // This trailing comma makes auto-formatting nicer for build methods.
