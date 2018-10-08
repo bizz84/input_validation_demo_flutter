@@ -1,8 +1,14 @@
-# input_validation_demo_flutter
+# Flutter: Input Validation with RegExp
 
-Input validation with Regex demo
+Demo project showing how to apply Regex validation to a Flutter [TextField](https://docs.flutter.io/flutter/material/TextField-class.html).
 
-## Getting Started
+## Preview 
 
-For help getting started with Flutter, view our online
-[documentation](https://flutter.io/).
+[![](screenshots/validators.png)](https://youtu.be/HLop7s2sJ7Q)
+
+Sample validators:
+
+- Numeric with 2 decimal digits, max 4 non-decimal digits
+- Email validator
+
+### [License: MIT](LICENSE.md)
