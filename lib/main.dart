@@ -23,12 +23,15 @@ class DecimalNumberSubmitValidator implements StringValidator {
 
 class EmailEditingRegexValidator extends RegexValidator {
   EmailEditingRegexValidator()
-      : super(regexSource: "^[a-zA-Z0-9_.+-]*(@([a-zA-Z0-9-]*(\\.[a-zA-Z0-9-]*)?)?)?\$");
+      : super(
+            regexSource:
+                "^[a-zA-Z0-9_.+-]*(@([a-zA-Z0-9-]*(\\.[a-zA-Z0-9-]*)?)?)?\$");
 }
 
 class EmailSubmitRegexValidator extends RegexValidator {
   EmailSubmitRegexValidator()
-      : super(regexSource: "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+\$)");
+      : super(
+            regexSource: "(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-]+\$)");
 }
 
 class MyApp extends StatelessWidget {
@@ -50,46 +53,51 @@ class MyHomePage extends StatelessWidget {
   final String title;
 
   void _pushPage(BuildContext context, Widget page) {
-
     Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => page,
     ));
   }
 
   void _forgotPassword(BuildContext context) {
-    _pushPage(context, InputValidationPage(
-      title: 'Forgot password',
-      inputDecoration: InputDecoration(hintText: 'test@test.com'),
-      textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
-      textAlign: TextAlign.start,
-      submitText: 'Submit',
-      keyboardType: TextInputType.emailAddress,
-      inputFormatter: ValidatorInputFormatter(
-        editingValidator: EmailEditingRegexValidator()
+    _pushPage(
+      context,
+      InputValidationPage(
+        title: 'Forgot password',
+        inputDecoration: InputDecoration(
+          hintText: 'test@test.com',
+        ),
+        textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
+        textAlign: TextAlign.start,
+        submitText: 'Submit',
+        keyboardType: TextInputType.emailAddress,
+        inputFormatter: ValidatorInputFormatter(
+            editingValidator: EmailEditingRegexValidator()),
+        submitValidator: EmailSubmitRegexValidator(),
+        onSubmit: (value) {
+          print(value);
+        },
       ),
-      submitValidator: EmailSubmitRegexValidator(),
-      onSubmit: (value) {
-        print(value);
-      },
-    ));
+    );
   }
 
   void _makePayment(BuildContext context) {
-    _pushPage(context, InputValidationPage(
-      title: 'Make a payment',
-      inputDecoration: InputDecoration.collapsed(hintText: '£0.00'),
-      textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
-      textAlign: TextAlign.center,
-      submitText: 'Submit',
-      keyboardType: TextInputType.number,
-      inputFormatter: ValidatorInputFormatter(
-          editingValidator: DecimalNumberEditingRegexValidator()
+    _pushPage(
+      context,
+      InputValidationPage(
+        title: 'Make a payment',
+        inputDecoration: InputDecoration.collapsed(hintText: '£0.00'),
+        textFieldStyle: TextStyle(fontSize: 32.0, color: Colors.black87),
+        textAlign: TextAlign.center,
+        submitText: 'Submit',
+        keyboardType: TextInputType.number,
+        inputFormatter: ValidatorInputFormatter(
+            editingValidator: DecimalNumberEditingRegexValidator()),
+        submitValidator: DecimalNumberSubmitValidator(),
+        onSubmit: (value) {
+          print(value);
+        },
       ),
-      submitValidator: DecimalNumberSubmitValidator(),
-      onSubmit: (value) {
-        print(value);
-      },
-    ));
+    );
   }
 
   @override
