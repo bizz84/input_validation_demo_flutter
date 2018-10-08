@@ -11,4 +11,8 @@ Sample validators:
 - Numeric with 2 decimal digits, max 4 non-decimal digits
 - Email validator
 
+--------
+
+Tested with Flutter Beta [0.8.2](https://github.com/flutter/flutter/releases/tag/v0.8.2).
+
 ### [License: MIT](LICENSE.md)
