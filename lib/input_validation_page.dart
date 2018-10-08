@@ -33,8 +33,13 @@ class _InputValidationPageState extends State<InputValidationPage> {
   String _value = '';
 
   void _submit() async {
-    _focusNode.unfocus();
-    widget.onSubmit(_value);
+    bool valid = widget.submitValidator.isValid(_value);
+    if (valid) {
+      _focusNode.unfocus();
+      widget.onSubmit(_value);
+    } else {
+      FocusScope.of(context).requestFocus(_focusNode);
+    }
   }
 
   @override
@@ -54,6 +59,8 @@ class _InputValidationPageState extends State<InputValidationPage> {
       textAlign: widget.textAlign,
       keyboardType: widget.keyboardType,
       autofocus: true,
+      autocorrect: false,
+      textInputAction: TextInputAction.done,
       inputFormatters: [
         widget.inputFormatter,
       ],
@@ -63,6 +70,7 @@ class _InputValidationPageState extends State<InputValidationPage> {
           _value = value;
         });
       },
+      onEditingComplete: _submit,
     );
   }
 
